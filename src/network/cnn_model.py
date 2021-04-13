@@ -6,8 +6,10 @@ from keras.callbacks import ReduceLROnPlateau, EarlyStopping, ModelCheckpoint
 from sklearn.model_selection import train_test_split
 from .data_preprocessing import get_dataset, data_augmentation
 
+# loading the dataset
 images, labels = get_dataset()
 
+# splitting the data
 train_images, test_images, train_labels, test_labels = train_test_split(images, labels,
                                                                         test_size=0.4, stratify=labels)
 valid_images, test_images, valid_labels, test_labels = train_test_split(test_images, test_labels,
@@ -18,10 +20,10 @@ train_images = np.expand_dims(train_images, -1)
 valid_images = np.expand_dims(valid_images, -1)
 test_images = np.expand_dims(test_images, -1)
 
+# perform augmentation
 train_data = data_augmentation(train_images, train_labels)
 
 # BUILDING THE CNN
-
 INPUT_SHAPE = (48, 48, 1)
 NUM_CLASSES = len(set(train_labels))
 EPOCHS = 200

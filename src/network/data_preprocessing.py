@@ -12,6 +12,7 @@ def string_preprocess(s):
     Converts the pixels in string format into two-dimensional int array.
 
     :param s: str, text containing 48 pixel values, separated with space
+    :return: numpy array with image pixels
     """
     s = np.array(s.split(' ')).astype(int)
     return s.reshape((PICTURE_SIZE, PICTURE_SIZE))
@@ -32,7 +33,6 @@ def get_dataset():
     # balancing the data
     over_sampler = RandomOverSampler()
     balanced_images, balanced_labels = over_sampler.fit_resample(images.reshape(len(images), PICTURE_SIZE ** 2), targets)
-
     balanced_images = balanced_images.reshape(len(balanced_images), PICTURE_SIZE, PICTURE_SIZE)
 
     return balanced_images, balanced_labels
